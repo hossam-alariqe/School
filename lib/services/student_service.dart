@@ -28,7 +28,7 @@ class StudentService {
         row['dob'],
         row['age'],
         row['profilePic'],
-        row['class_id'], // تمت إضافة دعم الصف الدراسي
+        row['class_id'], 
       ],
     );
   }
@@ -71,7 +71,7 @@ class StudentService {
         student.dob,
         student.age,
         student.profilePic,
-        student.classId, // تمت إضافة دعم الصف الدراسي
+        student.classId,
         student.id
       ],
     );
@@ -84,41 +84,6 @@ class StudentService {
       'DELETE FROM Students WHERE id = ?',
       [id],
     );
-  }
-
-  // البحث عن طلاب بالاسم مع دعم الصف الدراسي
-  static Future<List<Student>> searchStudents(String query, {int? classId}) async {
-    final db = await _dbHelper.db;
-    
-    final where = classId != null 
-      ? 'name LIKE ? AND class_id = ?' 
-      : 'name LIKE ?';
-      
-    final whereArgs = classId != null 
-      ? ['%$query%', classId] 
-      : ['%$query%'];
-
-    final List<Map<String, dynamic>> maps = await db.query(
-      'Students',
-      where: where,
-      whereArgs: whereArgs,
-    );
-
-    return List.generate(maps.length, (i) => Student.fromMap(maps[i]));
-  }
-
-  // الحصول على إحصائيات الحضور (من الكود الأصلي)
-  static Future<Map<String, dynamic>> getAttendanceStats(int studentId) async {
-    final db = await _dbHelper.db;
-    final result = await db.rawQuery('''
-      SELECT 
-        COUNT(*) as total_days,
-        SUM(CASE WHEN is_present = 1 THEN 1 ELSE 0 END) as present_days
-      FROM Attendance
-      WHERE student_id = ?
-    ''', [studentId]);
-
-    return result.first;
   }
 
 //  للدرجات إضافة الدوال الجديدة
@@ -152,38 +117,5 @@ static Future<void> updateGrade(int studentId, Map<String, dynamic> data) async 
   );
 }
 
-
-
-
-
-// static Future<void> insertGrade(Map<String, dynamic> data) async {
-//   final db = await _dbHelper.db;
-//   await db.insert(
-//     'Grades',
-//     data,
-//     conflictAlgorithm: ConflictAlgorithm.replace,
-//   );
-// }
-
-// static Future<Map<String, dynamic>> getStudentGrades(int studentId) async {
-//   final db = await _dbHelper.db;
-//   final result = await db.query(
-//     'Grades',
-//     where: 'student_id = ?',
-//     whereArgs: [studentId],
-//   );
-//   return result.isNotEmpty ? result.first : {};
-// }
-
-// //تحديث درجات الطالب
-// static Future<void> updateGrade(int studentId, Map<String, dynamic> data) async {
-//   final db = await _dbHelper.db;
-//   await db.update(
-//     'Grades',
-//     data,
-//     where: 'student_id = ?',
-//     whereArgs: [studentId],
-//   );
-// }
   
 }

@@ -1,7 +1,8 @@
+// ignore_for_file: unused_import
+
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-// ignore: unused_import
 import '../db/database_helper.dart';
 import '../models/student_data.dart';
 import '../providers/class_provaider.dart';
@@ -100,6 +101,8 @@ class _AddStudentsScreenState extends State<AddStudentsScreen> {
             ? 'تم تحديث بيانات الطالب بنجاح' 
             : 'تم إضافة الطالب بنجاح'),
         duration: const Duration(seconds: 2),
+        backgroundColor: Colors.green,
+
       ),
     );
   }

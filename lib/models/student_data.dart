@@ -64,29 +64,3 @@ Student( {
 
 
 
-/*
-//for databse
-// Additional constructor for creating a Student instance from a map
-  Student.fromMap(Map<String, dynamic> map)
-      : id = map['id'],
-        name = map['name'],
-        place = map['place'],
-        gender = map['gender'],
-        dob = map['dob'],
-        age = map['age'],
-        profilePic = map['profilePic'];
-
-  // Method to convert a Student instance to a map
-  Map<String, dynamic> toMap() {
-    return {
-      'id': id,
-      'name': name,
-      'place': place,
-      'gender': gender,
-      'dob': dob,
-      'age': age,
-      'profilePic': profilePic,
-    };
-  }
-}
-*/
